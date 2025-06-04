@@ -169,39 +169,218 @@
   </section>
   <!-- End paper abstract -->
 
+  <!-- Method overview -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Method Overview</h2>
+          <div class="content has-text-justified">
+            <img src="static/images/cvsports_method2.png" alt="Jersey recognition architecture overview"
+              style="width: 100%; margin-bottom: 1rem;" />
+            <p class="has-text-centered" style="font-style: italic;">
+              Overview of the proposed jersey recognition architecture. A pre-trained backbone extracts features from
+              player crops. The Jersey Number Head, specifically the Tied Digit-aware (TDA) variant shown here,
+              processes these features using position embeddings and a shared digit classifier to produce jersey scores.
+              The final Classification Head transforms these scores into probabilities and an uncertainty estimate using
+              an uncertainty-aware mechanism (e.g., Dirichlet). We present an actual output from ViT-B/8 trained on 200M
+              dataset (ours).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End method overview -->
+
+  <!-- Results table -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3 has-text-centered">Results</h2>
+        <div class="container is-max-desktop">
+
+          <!-- Main Results Table -->
+          <h3 class="title is-4 has-text-centered">Comparison with Prior Work on SoccerNet Benchmarks</h3>
+          <div class="table-container">
+            <table class="table is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Test Acc</th>
+                  <th>Challenge Acc</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Gerke et al. (2015)</td>
+                  <td>32.57%</td>
+                  <td>35.79%</td>
+                </tr>
+                <tr>
+                  <td>Vats et al. (2021)</td>
+                  <td>46.73%</td>
+                  <td>49.88%</td>
+                </tr>
+                <tr>
+                  <td>Li et al. (2018)</td>
+                  <td>47.85%</td>
+                  <td>50.60%</td>
+                </tr>
+                <tr>
+                  <td>Vats et al. (2022)</td>
+                  <td>52.91%</td>
+                  <td>58.45%</td>
+                </tr>
+                <tr>
+                  <td>Balaji et al. (2023)</td>
+                  <td>68.53%</td>
+                  <td>73.77%</td>
+                </tr>
+                <tr>
+                  <td>Koshkina et al. (2024)</td>
+                  <td>87.45%</td>
+                  <td>79.31%</td>
+                </tr>
+                <tr style="border-top: 2px solid #dbdbdb;">
+                  <td><strong>Ours (ViT-S, SoccerNet Dataset)</strong></td>
+                  <td>82.74%</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td><strong>Ours (ViT-B, SoccerNet Dataset)</strong></td>
+                  <td>86.37%</td>
+                  <td>83.52%</td>
+                </tr>
+                <tr style="border-top: 2px solid #dbdbdb;">
+                  <td><strong>Ours (ViT-B, 200M Dataset)</strong></td>
+                  <td>85.46%</td>
+                  <td><strong>85.62%</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Ours (ViT-B, 200M Dataset + SoccerNet finetuned)</strong></td>
+                  <td><strong>88.27%</strong></td>
+                  <td>85.41%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Uncertainty Modeling Results Table -->
+          <h3 class="title is-4 has-text-centered" style="margin-top: 2rem;">Ablation study based on SoccerNet
+            Test Dataset</h3>
+          <p class="has-text-centered is-size-6" style="margin-bottom: 1rem; font-style: italic;">
+            DA: Digit-Aware, TDA-M: Tied Digit-Aware with Multiplicative embedding, TDA-MB: TDA-M with Per-Digit Bias,
+            TDA-A: TDA with Additive embedding, IND: Independent
+          </p>
+          <div class="table-container">
+            <table class="table is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th rowspan="2" style="vertical-align: middle;">Head Type</th>
+                  <th colspan="2" class="has-text-centered">Acc Total (%)</th>
+                  <th colspan="2" class="has-text-centered">Acc Vis (%)</th>
+                  <th colspan="2" class="has-text-centered">Acc Invis (%)</th>
+                </tr>
+                <tr>
+                  <th>Softmax</th>
+                  <th>Dirichlet (Δ)</th>
+                  <th>Softmax</th>
+                  <th>Dirichlet (Δ)</th>
+                  <th>Softmax</th>
+                  <th>Dirichlet (Δ)</th>
+                </tr>
+              </thead>
+              <tbody class="is-size-7">
+                <tr>
+                  <td><strong>DA</strong></td>
+                  <td><strong>80.15 ± 1.16</strong></td>
+                  <td><strong>83.24 ± 0.94</strong> (+3.09)</td>
+                  <td><strong>83.72 ± 0.85</strong></td>
+                  <td><strong>85.83 ± 1.17</strong> (+2.11)</td>
+                  <td>71.55 ± 2.46</td>
+                  <td>77.00 ± 1.07 (+5.45)</td>
+                </tr>
+                <tr>
+                  <td>TDA-M</td>
+                  <td>78.70 ± 0.22</td>
+                  <td>82.91 ± 0.25 (+4.21)</td>
+                  <td>81.85 ± 0.82</td>
+                  <td>85.71 ± 0.70 (+3.86)</td>
+                  <td>71.08 ± 2.29</td>
+                  <td>76.15 ± 0.86 (+5.07)</td>
+                </tr>
+                <tr>
+                  <td>TDA-MB</td>
+                  <td>77.81 ± 0.59</td>
+                  <td>82.11 ± 1.92 (+4.30)</td>
+                  <td>80.49 ± 1.52</td>
+                  <td>84.11 ± 3.65 (+3.62)</td>
+                  <td>71.36 ± 2.40</td>
+                  <td>77.28 ± 2.28 (+5.92)</td>
+                </tr>
+                <tr>
+                  <td>TDA-A</td>
+                  <td>75.81 ± 0.73</td>
+                  <td>73.03 ± 0.80 (-2.78)</td>
+                  <td>77.18 ± 1.66</td>
+                  <td>71.11 ± 0.53 (-6.07)</td>
+                  <td><strong>72.49 ± 1.55</strong></td>
+                  <td><strong>77.65 ± 1.55</strong> (+5.16)</td>
+                </tr>
+                <tr>
+                  <td>IND</td>
+                  <td>73.47 ± 1.25</td>
+                  <td>78.48 ± 0.55 (+5.01)</td>
+                  <td>74.61 ± 0.97</td>
+                  <td>79.05 ± 1.94 (+4.44)</td>
+                  <td>70.70 ± 1.95</td>
+                  <td>77.09 ± 3.26 (+6.39)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End results table -->
+
 
   <!-- Image carousel -->
   <section class="hero is-small">
     <div class="hero-body">
       <div class="container">
+        <h2 class="title is-3 has-text-centered">Qualitative Results</h2>
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel1.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              First image description.
-            </h2>
+            <!-- Copa America results -->
+            <img src="static/images/samples_ca2_supplement.png" alt="Copa America qualitative results" />
+            <h3 class="subtitle has-text-centered is-size-6">
+              Extended qualitative results on the Copa America (CA, ours) dataset using our ViT-B/8 model trained on
+              200M dataset (ours).
+              Examples are sorted vertically by increasing prediction uncertainty (low to high). Each panel shows a
+              player crop with ground truth (GT) and predicted (Pred) detection-level jersey numbers. The border color
+              indicates prediction uncertainty, mapped by the color bar (blue=low, red=high). This demonstrates a clear
+              correlation: low uncertainty (blue borders, top rows) typically corresponds to clearer images and correct
+              predictions, while high uncertainty (red borders, bottom rows) is associated with challenging conditions
+              (blur, low resolution, occlusion) and a higher likelihood of prediction errors.
+            </h3>
           </div>
           <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel2.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Second image description.
-            </h2>
-          </div>
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel3.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Third image description.
-            </h2>
-          </div>
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel4.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Fourth image description.
-            </h2>
+            <!-- SoccerNet results -->
+            <img src="static/images/samples_soccernet_supplement.png" alt="SoccerNet qualitative results" />
+            <h3 class="subtitle has-text-centered is-size-6">
+              Extended qualitative results on the SoccerNet Test dataset using our ViT-B/8 model trained on 200M
+              dataset (ours).
+              Examples are sorted vertically by increasing prediction uncertainty (low to high). Each panel shows a
+              player crop with ground truth (GT) and predicted (Pred) detection-level jersey numbers. The border color
+              indicates prediction uncertainty, mapped by the color bar (blue=low, red=high). This demonstrates a clear
+              correlation: low uncertainty (blue borders, top rows) typically corresponds to clearer images and correct
+              predictions, while high uncertainty (red borders, bottom rows) is associated with challenging conditions
+              (blur, low resolution, occlusion) and a higher likelihood of prediction errors.
+            </h3>
           </div>
         </div>
       </div>
@@ -210,19 +389,18 @@
   <!-- End image carousel -->
 
 
-
-
-  <!-- Youtube video -->
+  <!-- 
+  Youtube video 
   <section class="hero is-small is-light">
     <div class="hero-body">
       <div class="container">
-        <!-- Paper video. -->
+        Paper video.
         <h2 class="title is-3">Video Presentation</h2>
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
 
             <div class="publication-video">
-              <!-- Youtube embed code here -->
+              Youtube embed code here
               <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media"
                 allowfullscreen></iframe>
             </div>
@@ -231,10 +409,10 @@
       </div>
     </div>
   </section>
-  <!-- End youtube video -->
+  End youtube video
 
 
-  <!-- Video carousel -->
+  Video carousel
   <section class="hero is-small">
     <div class="hero-body">
       <div class="container">
@@ -242,19 +420,19 @@
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item item-video1">
             <video poster="" id="video1" autoplay controls muted loop height="100%">
-              <!-- Your video file here -->
+              Your video file here
               <source src="static/videos/carousel1.mp4" type="video/mp4">
             </video>
           </div>
           <div class="item item-video2">
             <video poster="" id="video2" autoplay controls muted loop height="100%">
-              <!-- Your video file here -->
+              Your video file here
               <source src="static/videos/carousel2.mp4" type="video/mp4">
             </video>
           </div>
           <div class="item item-video3">
             <video poster="" id="video3" autoplay controls muted loop height="100%">\
-              <!-- Your video file here -->
+              Your video file here
               <source src="static/videos/carousel3.mp4" type="video/mp4">
             </video>
           </div>
@@ -262,14 +440,10 @@
       </div>
     </div>
   </section>
-  <!-- End video carousel -->
+  End video carousel
 
 
-
-
-
-
-  <!-- Paper poster -->
+  Paper poster
   <section class="hero is-small is-light">
     <div class="hero-body">
       <div class="container">
@@ -281,14 +455,20 @@
       </div>
     </div>
   </section>
-  <!--End paper poster -->
+  End paper poster
+  -->
 
 
   <!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>BibTex Code Here</code></pre>
+      <pre><code>@InProceedings{Grad2025,
+  title={Single-Stage Uncertainty-Aware Jersey Number Recognition in Soccer},
+  author={Grad, Łukasz},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVSports)},
+  year={2025}
+}</code></pre>
     </div>
   </section>
   <!--End BibTex citation -->
