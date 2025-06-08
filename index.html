@@ -130,11 +130,14 @@
       <div class="hero-body">
         <video poster="" id="tree" autoplay controls muted loop height="100%">
           <!-- Your video here -->
-          <source src="static/videos/player_tracks_seed_1234_web.mp4" type="video/mp4">
+          <source src="static/videos/jersey_banner_video_web.mp4" type="video/mp4">
         </video>
-        <h2 class="subtitle has-text-centered">
-          Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat
-          pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus.
+        <h2 class="subtitle has-text-centered is-size-6">
+          Temporal qualitative results on the SoccerNet test dataset using our ViT-B/8 model trained on 200M. The
+          timeline visualization shows player track evolution with 1-second time bins, where historical frames display
+          the lowest uncertainty detection from each bin. Each player crop shows predicted jersey numbers with
+          confidence scores. Border colors indicate prediction uncertainty using the color bar legend (blue=low
+          uncertainty, red=high uncertainty).
         </h2>
       </div>
     </div>
@@ -202,6 +205,9 @@
 
           <!-- Main Results Table -->
           <h3 class="title is-4 has-text-centered">Comparison with Prior Work on SoccerNet Benchmarks</h3>
+          <p class="has-text-centered is-size-6" style="margin-bottom: 1rem; font-style: italic;">
+            Tracklet-level accuracy results. Prior work results are taken from Koshkina et al. (2024).
+          </p>
           <div class="table-container">
             <table class="table is-striped is-hoverable is-fullwidth">
               <thead>
@@ -270,8 +276,10 @@
           <h3 class="title is-4 has-text-centered" style="margin-top: 2rem;">Ablation study based on SoccerNet
             Test Dataset</h3>
           <p class="has-text-centered is-size-6" style="margin-bottom: 1rem; font-style: italic;">
-            DA: Digit-Aware, TDA-M: Tied Digit-Aware with Multiplicative embedding, TDA-MB: TDA-M with Per-Digit Bias,
-            TDA-A: TDA with Additive embedding, IND: Independent
+            Tracklet-level accuracy results. Acc Vis: accuracy on tracklets with visible jersey numbers at any point in
+            the sequence. Acc Invis: accuracy on tracklets where jersey numbers were not observed across the whole
+            sequence. DA: Digit-Aware, TDA-M: Tied Digit-Aware with Multiplicative embedding, TDA-MB: TDA-M with
+            Per-Digit Bias, TDA-A: TDA with Additive embedding, IND: Independent
           </p>
           <div class="table-container">
             <table class="table is-striped is-hoverable is-fullwidth">
@@ -351,7 +359,7 @@
   <!-- Image carousel -->
   <section class="hero is-small">
     <div class="hero-body">
-      <div class="container">
+      <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-centered">Qualitative Results</h2>
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item">
